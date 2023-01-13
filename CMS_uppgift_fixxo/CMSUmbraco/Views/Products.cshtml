@@ -1,0 +1,63 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.Products>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@{
+	Layout = "Layout.cshtml";
+	ViewData["Title"] = @Model.Value("titleHome");
+}
+
+<div id="sale-up" >
+        <div class="sale-container">
+            <div>
+                <img src="images/sale/img1.svg" alt="">
+            </div>
+            <div class="sale">
+                <h2>@Model.Value("saleHeader")</h2>
+                <div>@Model.Value("freeDelivery")</div>
+                <button class="btn">SHOP NOW</button>
+            </div>
+            <div>
+                <img src="images/sale/img2.svg" alt="">
+            </div>
+        </div>
+</div>
+
+@{
+	var selection = Umbraco.Content(Guid.Parse("aa7dc6fd-e2d4-4dc4-9572-9d1c52433ba7"))
+    .ChildrenOfType("productItem")
+    .Where(x => x.IsVisible())
+    .OrderByDescending(x => x.CreateDate);
+}
+
+	
+
+
+<div id="featured">
+        <div class="featured">Featured Product</div>
+        <div class="featured-container" >
+            @foreach (var item in selection)
+        	{
+        	    var thumbnailImage = item.Value<IPublishedContent>("productThumbnailImage");
+        	    
+        	    <a href="@item.Url()">
+            		<div class="product-container">
+                        <div class="img-container">
+                            <img class="product-image" src="@thumbnailImage.Url()" alt="">
+                            <img class="placeholder2" src="images/featured/placeholder2.svg" alt="">
+                            <img class="icons" src="images/featured/icon-extra.svg" alt="">
+                            <button class="btn3">QUICK VIEW</button>
+        
+                        </div>
+                        <div class="Category">@Model.Value("productCategory")</div>
+                        <div class="product-name">@item.Name()</div>
+                        <div class="rated">5 stars</div>
+                        <div class="Price">
+                            <div class="old-price">@Model.Value("productOldPrice")</div>
+                            <div class="new-price">@Model.Value("productNewPrice")</div>
+                        </div>
+                    </div> 
+                </a>
+        	}  
+        </div>
+</div>
+

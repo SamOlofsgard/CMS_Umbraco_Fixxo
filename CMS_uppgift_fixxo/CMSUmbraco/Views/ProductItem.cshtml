@@ -1,0 +1,42 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.ProductItem>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@{
+	Layout = "Layout.cshtml";
+	ViewData["Title"] = @Model.Value("titleProductItem");
+}
+
+
+
+
+@{
+    IPublishedContent ProductImage = Model.Value<IPublishedContent>("productThumbNailImage"); 
+}
+
+
+
+<div id="product">
+    <div class="product-container">
+        <div class="img-placeholders">
+            <div class="img-big-placeholder">
+                <img src="@ProductImage.Url()" class="blog-image">
+            </div>
+        </div>
+        <div class="product-info">
+            <div class="product-name">@Model.Value("titleProductItem")</div>
+            <div class="product-id">SKU: 12345670 BRAND: The Northland</div>
+            <div class="product-rated">5 stars</div>
+            <div class="product-price">@Model.Value("productNewPrice").00$</div>
+            <div class="product-text">Category: @Model.Value("productCategory")</div>
+            <div class="product-size">Size: S M L X</div>
+            <div class="product-color">Color: Choose an Option</div>
+            <div class="product-quantity"> Quantity: 1 
+                <button class="btn5">ADD TO CHART</button>                    
+            </div>
+            <div class="social-media">Share:
+                <img src="images/social.svg" alt="">
+            </div>
+        </div>
+    </div>
+</div>
+    		
